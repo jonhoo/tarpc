@@ -209,6 +209,9 @@ pub mod future {
                 let handle2 = handle.clone();
                 TcpStream::connect(&addr, handle)
                     .and_then(move |socket| {
+                        if let Err(e) = socket.set_nodelay(true) {
+                            return future::err(e);
+                        }
                         #[cfg(feature = "tls")]
                         match tls_ctx {
                             Some(tls_ctx) => {

@@ -44,6 +44,9 @@ type Accept = future::FutureResult<TcpStream, io::Error>;
 impl Acceptor {
     #[cfg(feature = "tls")]
     fn accept(&self, socket: TcpStream) -> Accept {
+        if let Err(e) = socket.set_nodelay(true) {
+            return future::Either::B(future::err(e));
+        }
         match *self {
             Acceptor::Tls(ref tls_acceptor) => {
                 future::Either::A(tls_acceptor.accept_async(socket)
@@ -56,6 +59,9 @@ impl Acceptor {
 
     #[cfg(not(feature = "tls"))]
     fn accept(&self, socket: TcpStream) -> Accept {
+        if let Err(e) = socket.set_nodelay(true) {
+            return future::err(e);
+        }
         future::ok(socket)
     }
 }
