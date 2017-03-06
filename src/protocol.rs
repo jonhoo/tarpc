@@ -13,7 +13,7 @@ use tokio_core::io::{EasyBuf, Framed, Io};
 use tokio_proto::multiplex::{ClientProto, ServerProto};
 use tokio_proto::streaming::multiplex::RequestId;
 
-// `Encode` is the type that `Codec` encodes. `Decode` is the type it decodes.
+/// `Encode` is the type that `Codec` encodes. `Decode` is the type it decodes.
 pub struct Codec<Encode, Decode> {
     state: CodecState,
     _phantom_data: PhantomData<(Encode, Decode)>,
@@ -26,7 +26,8 @@ enum CodecState {
 }
 
 impl<Encode, Decode> Codec<Encode, Decode> {
-    fn new() -> Self {
+    /// FOO
+    pub fn new() -> Self {
         Codec {
             state: CodecState::Id,
             _phantom_data: PhantomData,

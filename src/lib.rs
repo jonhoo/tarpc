@@ -158,7 +158,7 @@ pub mod client;
 pub mod server;
 /// Provides implementations of `ClientProto` and `ServerProto` that implement the tarpc protocol.
 /// The tarpc protocol is a length-delimited, bincode-serialized payload.
-mod protocol;
+pub mod protocol;
 /// Provides a few different error types.
 mod errors;
 /// Provides an abstraction over TLS and TCP streams.

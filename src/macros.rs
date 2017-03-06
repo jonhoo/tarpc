@@ -341,7 +341,7 @@ macro_rules! service {
 
         #[allow(non_camel_case_types)]
         #[derive(Clone)]
-        struct tarpc_service_AsyncServer__<S>(S);
+        pub struct tarpc_service_AsyncServer__<S>(pub S);
 
         impl<S> ::std::fmt::Debug for tarpc_service_AsyncServer__<S> {
             fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -356,7 +356,7 @@ macro_rules! service {
                                       ::std::io::Error>;
 
         #[allow(non_camel_case_types)]
-        enum tarpc_service_FutureReply__<tarpc_service_S__: FutureService> {
+        pub enum tarpc_service_FutureReply__<tarpc_service_S__: FutureService> {
             DeserializeError(tarpc_service_Future__),
             $($fn_name(
                     $crate::futures::Then<
@@ -1126,15 +1126,13 @@ mod functional_test {
             reactor.handle().spawn(server);
 
             let client = FutureClient::connect(addr,
-                                               client::Options::default()
-                                                   .handle(reactor.handle()));
+                                               client::Options::default().handle(reactor.handle()));
             let client = unwrap!(reactor.run(client));
             assert_eq!(reactor.run(client.add(1, 2)).unwrap(), 3);
             drop(client);
 
             let client = FutureClient::connect(addr,
-                                               client::Options::default()
-                                                   .handle(reactor.handle()));
+                                               client::Options::default().handle(reactor.handle()));
             let client = unwrap!(reactor.run(client));
             assert_eq!(reactor.run(client.add(1, 2)).unwrap(), 3);
         }
