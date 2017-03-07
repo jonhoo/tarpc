@@ -26,7 +26,7 @@ enum CodecState {
 }
 
 impl<Encode, Decode> Codec<Encode, Decode> {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Codec {
             state: CodecState::Id,
             _phantom_data: PhantomData,
