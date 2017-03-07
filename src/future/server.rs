@@ -597,7 +597,8 @@ impl<I, S, Req, Resp, E> Fn<(I,)> for Bind<S>
     }
 }
 
-fn listener(addr: &SocketAddr, handle: &reactor::Handle) -> io::Result<TcpListener> {
+/// Creates a `TcpListener` that doesn't require exclusive access to its socket.
+pub fn listener(addr: &SocketAddr, handle: &reactor::Handle) -> io::Result<TcpListener> {
     const PENDING_CONNECTION_BACKLOG: i32 = 1024;
 
     let builder = match *addr {

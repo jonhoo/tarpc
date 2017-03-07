@@ -337,9 +337,10 @@ macro_rules! service {
             )*
         }
 
+        /// Scaffolding from tarpc services to `tokio_service::NewService.`
         #[allow(non_camel_case_types)]
         #[derive(Clone)]
-        struct tarpc_service_AsyncServer__<S>(S);
+        pub struct tarpc_service_AsyncServer__<S>(S);
 
         impl<S> ::std::fmt::Debug for tarpc_service_AsyncServer__<S> {
             fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
@@ -353,8 +354,9 @@ macro_rules! service {
                                                        tarpc_service_Error__>,
                                       ::std::io::Error>;
 
+        /// Future returned by `tarpc_service_AsyncServer__`.
         #[allow(non_camel_case_types)]
-        enum tarpc_service_FutureReply__<tarpc_service_S__: FutureService> {
+        pub enum tarpc_service_FutureReply__<tarpc_service_S__: FutureService> {
             DeserializeError(tarpc_service_Future__),
             $($fn_name(
                     $crate::futures::Then<
@@ -500,6 +502,11 @@ macro_rules! service {
                                               handle,
                                               options)
                     .map(|(handle, inner)| (handle, Listen { inner }))
+            }
+
+            /// Convert to a tokio `NewService`
+            fn to_new_service(self) -> tarpc_service_AsyncServer__<Self> {
+                tarpc_service_AsyncServer__(self)
             }
         }
 
