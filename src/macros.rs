@@ -340,7 +340,7 @@ macro_rules! service {
         /// Scaffolding from tarpc services to `tokio_service::NewService.`
         #[allow(non_camel_case_types)]
         #[derive(Clone)]
-        pub struct tarpc_service_AsyncServer__<S>(S);
+        pub struct tarpc_service_AsyncServer__<S>(pub S);
 
         impl<S> ::std::fmt::Debug for tarpc_service_AsyncServer__<S> {
             fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
