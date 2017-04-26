@@ -6,8 +6,10 @@ use tokio_io::{AsyncRead, AsyncWrite};
 #[cfg(feature = "tls")]
 use tokio_tls::TlsStream;
 
+/// xxx
 #[derive(Debug)]
 pub enum StreamType {
+    /// xxx
     Tcp(TcpStream),
     #[cfg(feature = "tls")]
     Tls(TlsStream<TcpStream>),

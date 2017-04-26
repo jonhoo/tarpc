@@ -323,11 +323,16 @@ fn configure_tcp(_tcp: &net2::TcpBuilder) -> io::Result<()> {
     Ok(())
 }
 
-struct BindStream<S, St> {
-    handle: reactor::Handle,
-    new_service: connection::TrackingNewService<S>,
-    stream: St,
-    max_payload_size: u64,
+/// xxxx
+pub struct BindStream<S, St> {
+    /// xxxx
+    pub handle: reactor::Handle,
+    /// xxxx
+    pub new_service: connection::TrackingNewService<S>,
+    /// xxxx
+    pub stream: St,
+    /// xxxx
+    pub max_payload_size: u64,
 }
 
 impl<S, St> fmt::Debug for BindStream<S, St>
@@ -354,7 +359,8 @@ impl<S, Req, Resp, E, I, St> BindStream<S, St>
           I: AsyncRead + AsyncWrite + 'static,
           St: Stream<Item = I, Error = io::Error>
 {
-    fn bind_each(&mut self) -> Poll<(), io::Error> {
+    /// xxx
+    pub fn bind_each(&mut self) -> Poll<(), io::Error> {
         loop {
             match try!(self.stream.poll()) {
                 Async::Ready(Some(socket)) => {
